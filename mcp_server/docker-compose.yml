@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  user_management_mcp-server-framework-based:
+    build: .
+    ports:
+      - "8005:8005"
+    environment:
+      - USERS_MANAGEMENT_SERVICE_URL=${USERS_MANAGEMENT_SERVICE_URL:-http://localhost:8041}
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8005/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
